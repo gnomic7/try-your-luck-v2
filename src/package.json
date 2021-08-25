@@ -1,0 +1,8 @@
+{
+  "name": "@gnomic7/try-your-luck-v2",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+      "./apps/*"
+  ]
+}
