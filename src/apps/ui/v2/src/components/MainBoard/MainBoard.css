@@ -1,0 +1,26 @@
+.mainBoard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-group button {
+  margin: 2px;
+  font-weight: 900;
+  box-shadow: inset 1px 1px 10px #333;
+  background-color: #04aa6d; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 30px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}

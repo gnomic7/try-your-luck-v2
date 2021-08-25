@@ -1,0 +1,22 @@
+/* .container { */
+/* More to come soon */
+/* } */
+
+.scoreBoard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid;
+  padding: 5px;
+  margin-top: 0;
+  background-color: rgb(56, 131, 79);
+  box-shadow: inset 1px 1px 10px #333;
+}
+
+.memberItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
