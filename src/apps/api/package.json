@@ -1,0 +1,10 @@
+{
+  "name": "@gnomic7/api",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "apollo-server": "^3.1.2",
+    "graphql": "^15.5.1"
+  }
+}

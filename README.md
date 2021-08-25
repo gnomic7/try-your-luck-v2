@@ -1,1 +1,1 @@
-# try-your-luck-v2
+# Try Your Luck v2
