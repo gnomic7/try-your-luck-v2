@@ -3,15 +3,23 @@
 /* } */
 
 .scoreBoard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  border: 1px solid;
-  padding: 5px;
-  margin-top: 0;
-  background-color: rgb(56, 131, 79);
-  box-shadow: inset 1px 1px 10px #333;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 200px;
+  box-shadow: 0 0 10px rgba(161, 148, 148, 0.473);
+}
+
+.scoreBoardHeader {
+  color: rgb(241, 235, 235);
+  text-align: center;
+  padding: 8px;
+  font-style: italic;
+  font-size: 1.2rem;
+  box-shadow: 0 10px 0 rgba(161, 148, 148, 0.473);
 }
 
 .memberItem {
@@ -19,4 +27,16 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
+}
+.memberItem:nth-of-type(odd) {
+  background-color: #40885c;
+}
+.memberItem:nth-of-type(even) {
+  background-color: #d3ddd7;
+}
+
+.memberItem:hover {
+  font-weight: bold;
+  color: #009879;
 }

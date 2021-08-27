@@ -8,9 +8,14 @@
 }
 
 .mainContent {
-  min-width: 98%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+}
+.welcomeMessage {
+  font-size: small;
+  font-weight: bolder;
+  text-align: center;
+  color: rgb(242, 247, 247);
 }

@@ -11,7 +11,7 @@ const ScoreBoardContainer = () => {
   if (error) return <p>Error :(</p>;
   return (
     <div className="scoreBoard">
-      <h5>Current Score Board</h5>
+      <div className="scoreBoardHeader">Current Score Board</div>
       {data.teamMembers.map((member) => (
         <ScoreBoard member={member} key={member.fullName} />
       ))}
