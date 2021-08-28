@@ -20,7 +20,9 @@
     "apollo-server": "^3.3.0",
     "class-validator": "^0.13.1",
     "graphql": "^15.5.1",
+    "mongodb": "^4.1.1",
     "reflect-metadata": "^0.1.13",
-    "type-graphql": "^1.1.1"
+    "type-graphql": "^1.1.1",
+    "uuid": "^8.3.2"
   }
 }

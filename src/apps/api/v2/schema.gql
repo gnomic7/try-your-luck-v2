@@ -4,7 +4,8 @@
 # -----------------------------------------------
 
 type Mutation {
-  addTeamMember(teamMemberInput: TeamMemberInput!): TeamMember!
+  addTeamMember(teamMemberInput: String!): TeamMember!
+  dropTeamMember(teamMemberInput: String!): TeamMember!
 }
 
 type Query {
@@ -13,11 +14,7 @@ type Query {
 
 type TeamMember {
   fullName: String!
-  id: Float!
+  id: String!
   score: Float!
   status: Boolean!
-}
-
-input TeamMemberInput {
-  fullName: String!
 }

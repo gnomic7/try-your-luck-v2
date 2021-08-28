@@ -1,21 +1,25 @@
-import { Field, ObjectType, InputType } from 'type-graphql'
+import { Field, ObjectType, InputType } from 'type-graphql';
 
 @ObjectType()
 export class TeamMember {
   @Field()
-  id: number
+  id: string;
 
   @Field()
-  fullName: string
+  fullName: string;
 
   @Field()
-  score: number
+  score: number;
 
   @Field()
-  status: boolean
+  status: boolean;
 }
 
 @InputType()
 export class TeamMemberInput implements Partial<TeamMember> {
   @Field()
-  fullName: string}
+  fullName: string;
+
+  @Field()
+  id: string;
+}

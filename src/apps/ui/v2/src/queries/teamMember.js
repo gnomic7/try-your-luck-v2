@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const TEAM_MEMBERS = gql`
   query GetTeamMembers {
-    teamMembers {
+    getTeamMembers {
       fullName
       score
     }

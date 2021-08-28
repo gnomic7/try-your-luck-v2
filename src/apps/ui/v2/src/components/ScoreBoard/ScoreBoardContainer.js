@@ -12,7 +12,7 @@ const ScoreBoardContainer = () => {
   return (
     <div className="scoreBoard">
       <div className="scoreBoardHeader">Current Score Board</div>
-      {data.teamMembers.map((member) => (
+      {data.getTeamMembers.map((member) => (
         <ScoreBoard member={member} key={member.fullName} />
       ))}
     </div>
