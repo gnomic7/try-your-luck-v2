@@ -3,23 +3,23 @@ import { Field, ObjectType, InputType } from 'type-graphql';
 @ObjectType()
 export class TeamMember {
   @Field()
-  id: string;
+  id: string = '';
 
   @Field()
-  fullName: string;
+  fullName: string = '';
 
   @Field()
-  score: number;
+  score: number = 0;
 
   @Field()
-  status: boolean;
+  status: boolean = false;
 }
 
 @InputType()
 export class TeamMemberInput implements Partial<TeamMember> {
   @Field()
-  fullName: string;
+  fullName: string = '';
 
   @Field()
-  id: string;
+  id: string = '';
 }

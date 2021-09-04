@@ -1,44 +1,53 @@
-import React, { useState } from 'react';
-
 import './MainBoard.css';
 const fn = () => Math.round(Math.random() * 100);
-
-const MainBoard = () => {
-  const [score, setScore] = useState(0);
-  return (
-    <div className="mainBoard btn-group">
-      <div>
+let IDX = 0;
+// const RANDOM_EMOJIS = {
+//   1: '🙈',
+//   2: '🐶',
+//   3: '🐕',
+//   4: '🐩',
+//   5: '🦒',
+//   6: '🐫',
+//   7: '🐎',
+//   8: '🦁',
+//   9: '🦍',
+//   10: '🐳',
+// };
+const MainBoard = ({ computeTotal }) => (
+  <div className="mainBoard">
+    <div className="btn-group">
+      <div key="row1">
         {Array(3)
           .fill()
           .map((i) => i)
           .map((i) => (
-            <button onClick={() => setScore(score + fn())} key={i + 0}>
+            <button onClick={() => computeTotal(fn())} key={IDX++}>
               Try Me!
             </button>
           ))}
       </div>
-      <div>
+      <div key="row2">
         {Array(3)
           .fill()
           .map((i) => i)
           .map((i) => (
-            <button onClick={() => setScore(score + fn())} key={i + 3}>
+            <button onClick={() => computeTotal(fn())} key={IDX++}>
               Try Me!
             </button>
           ))}
       </div>
-      <div>
+      <div key="row3">
         {Array(3)
           .fill()
           .map((i) => i)
           .map((i) => (
-            <button onClick={() => setScore(score + fn())} key={i + 6}>
+            <button onClick={() => computeTotal(fn())} key={IDX++}>
               Try Me!
             </button>
           ))}
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default MainBoard;

@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["esnext"],
+    "strict": true,
+    "sourceMap": true,
+    "esModuleInterop": true
   }
 }

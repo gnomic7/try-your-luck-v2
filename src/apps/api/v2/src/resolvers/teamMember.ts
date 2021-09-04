@@ -1,5 +1,5 @@
 import { isUUID } from 'class-validator';
-import { Query, Resolver, Mutation, Arg } from 'type-graphql';
+import { Query, Resolver, Mutation, Arg, Subscription } from 'type-graphql';
 import { v4 as uuidv4 } from 'uuid';
 
 import { TeamMember, TeamMemberInput } from '../schemas/TeamMember';
@@ -12,18 +12,21 @@ export class TeamMemberResolver {
   @Query((returns) => [TeamMember], { nullable: true })
   async getTeamMembers(): Promise<TeamMember[]> {
     const teamMemberCollection = await getCollection(TEAM_MEMBER_COLLECTION);
-    return (await teamMemberCollection.find({}).toArray()).map((member) => ({
-      id: member.id || uuidv4(),
-      fullName: member.fullName || '',
-      score: member.score || 0,
-      status: member.status || false,
-    }));
+    return (await teamMemberCollection.find({}).toArray())
+      .map((member) => ({
+        id: member.id || uuidv4(),
+        fullName: member.fullName || '',
+        score: member.score || 0,
+        status: member.status || false,
+      }))
+      .sort((a, b) => b.score - a.score);
   }
 
   @Mutation((returns) => TeamMember)
   async addTeamMember(
     @Arg('teamMemberInput') fullName: string,
   ): Promise<TeamMember> {
+    console.log({ fullName });
     const teamMemberCollection = await getCollection(TEAM_MEMBER_COLLECTION);
     const teamMember = {
       id: uuidv4(),
@@ -49,10 +52,25 @@ export class TeamMemberResolver {
     const response = await teamMemberCollection.findOne<TeamMember>({
       id,
     });
-    if (response.id) {
+    if (response && response.id) {
       await teamMemberCollection.deleteOne({ id });
+      return response;
     }
 
-    return response;
+    return { id: '' };
   }
+
+  // @Subscription({ topics: 'memberAdded' })
+  // async memberAdded(): Promise<{ id: string }> {
+  //   const teamMemberCollection = await getCollection(TEAM_MEMBER_COLLECTION);
+  //   const response = await teamMemberCollection.findOne<TeamMember>({
+  //     id,
+  //   });
+  //   if (response && response.id) {
+  //     await teamMemberCollection.deleteOne({ id });
+  //     return response;
+  //   }
+
+  //   return { id: '' };
+  // }
 }

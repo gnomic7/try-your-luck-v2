@@ -4,15 +4,18 @@ import { MainBoard } from '../MainBoard';
 import { ScoreBoard } from '../ScoreBoard';
 
 import './App.css';
-
-const App = () => (
-  <div className="main">
-    <MainHeader />
-    <div className="mainContent">
+const AppComponent = () => (
+  <>
+    <section className="mainContent">
+      <MainHeader />
       <MainBoard />
+    </section>
+    <aside>
       <ScoreBoard />
-    </div>
-  </div>
+    </aside>
+  </>
 );
+
+const App = () => <AppComponent />;
 
 export default App;

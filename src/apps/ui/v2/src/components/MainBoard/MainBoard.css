@@ -1,3 +1,10 @@
+.mainBoard {
+  min-width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .btn-group button {
   margin: 2px;
   font-weight: 900;

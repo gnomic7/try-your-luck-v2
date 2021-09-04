@@ -1,0 +1,20 @@
+.footerNav {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #40885c;
+}
+.footerBar {
+  padding: 10px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  font-stretch: semi-expanded;
+  color: azure;
+}

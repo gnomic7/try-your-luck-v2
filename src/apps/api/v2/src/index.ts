@@ -1,27 +1,66 @@
 import 'reflect-metadata';
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import express from 'express';
+import { createServer } from 'http';
+import { execute, subscribe } from 'graphql';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+
 import { buildSchema } from 'type-graphql';
 import { TeamMemberResolver } from './resolvers/teamMember';
 
-(async () => {
+// import { makeExecutableSchema } from '@graphql-tools/schema';
+
+(async function () {
+  const app = express();
+
+  const httpServer = createServer(app);
+
   const schema = await buildSchema({
     resolvers: [TeamMemberResolver],
     emitSchemaFile: true,
   });
-  // The ApolloServer constructor requires two parameters: your schema
-  // definition and your set of resolvers.
+  const userId = '12345';
   const server = new ApolloServer({
     schema,
-    context: () => {
-      const dbConn = 'testDB';
-
-      return { dbConn };
+    context() {
+      // lookup userId by token, etc.
+      return { userId };
     },
-    introspection: true,
+    plugins: [
+      {
+        async serverWillStart() {
+          return {
+            async drainServer() {
+              subscriptionServer.close();
+            },
+          };
+        },
+      },
+    ],
   });
 
-  // The `listen` method launches a web server.
-  server.listen().then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`);
-  });
+  const subscriptionServer = SubscriptionServer.create(
+    {
+      schema,
+      execute,
+      subscribe,
+      onConnect() {
+        // lookup userId by token, etc.
+        return { userId };
+      },
+    },
+    {
+      server: httpServer,
+      path: server.graphqlPath,
+    },
+  );
+
+  await server.start();
+  server.applyMiddleware({ app });
+
+  const PORT = 4000;
+  httpServer.listen(PORT, () =>
+    console.log(`Server is now running on http://localhost:${PORT}/graphql`),
+  );
 })();

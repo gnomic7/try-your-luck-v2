@@ -7,11 +7,19 @@
   align-items: center;
 }
 
-.mainContent {
+.container {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+}
+.mainContent {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .welcomeMessage {
   font-size: small;

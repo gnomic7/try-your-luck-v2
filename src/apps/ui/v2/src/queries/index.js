@@ -1,1 +1,1 @@
-export { default as TEAM_MEMBERS } from './teamMember';
+export * from './teamMember';

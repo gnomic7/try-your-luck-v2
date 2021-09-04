@@ -10,6 +10,7 @@ const getCollection = async (name: string) => {
   } catch (error) {
     console.log(error);
     mongoClient.close();
+    throw new Error('Unable to establish connection to mongodb!');
   } finally {
     console.log('Connected to Mongoclient');
   }
