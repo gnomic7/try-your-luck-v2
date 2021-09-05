@@ -23,9 +23,7 @@ export class TeamMemberResolver {
   }
 
   @Mutation((returns) => TeamMember)
-  async addTeamMember(
-    @Arg('teamMemberInput') fullName: string,
-  ): Promise<TeamMember> {
+  async addTeamMember(@Arg('fullName') fullName: string): Promise<TeamMember> {
     console.log({ fullName });
     const teamMemberCollection = await getCollection(TEAM_MEMBER_COLLECTION);
     const teamMember = {
@@ -45,9 +43,7 @@ export class TeamMemberResolver {
   }
 
   @Mutation((returns) => TeamMember)
-  async dropTeamMember(
-    @Arg('teamMemberInput') id: string,
-  ): Promise<{ id: string }> {
+  async dropTeamMember(@Arg('id') id: string): Promise<{ id: string }> {
     const teamMemberCollection = await getCollection(TEAM_MEMBER_COLLECTION);
     const response = await teamMemberCollection.findOne<TeamMember>({
       id,
@@ -58,6 +54,22 @@ export class TeamMemberResolver {
     }
 
     return { id: '' };
+  }
+
+  @Mutation((returns) => TeamMember)
+  async updateTeamMember(
+    @Arg('fullName') fullName: string,
+    @Arg('score') score: number,
+  ): Promise<TeamMember | {}> {
+    console.log({ fullName, score });
+    const teamMemberCollection = await getCollection(TEAM_MEMBER_COLLECTION);
+    await teamMemberCollection.updateOne({ fullName }, { $set: { score } });
+
+    return (
+      (await teamMemberCollection.findOne<TeamMember>({
+        fullName,
+      })) || {}
+    );
   }
 
   // @Subscription({ topics: 'memberAdded' })

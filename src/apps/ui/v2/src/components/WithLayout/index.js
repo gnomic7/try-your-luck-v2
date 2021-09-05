@@ -1,1 +1,1 @@
-export { default as WithLayout } from './WithLayout';
+export { default as WithLayout, ApplicationContext } from './WithLayout';

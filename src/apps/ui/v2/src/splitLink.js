@@ -2,18 +2,18 @@ import { split, HttpLink } from '@apollo/client';
 
 import { getMainDefinition } from '@apollo/client/utilities';
 
-import { WebSocketLink } from '@apollo/client/link/ws';
+// import { WebSocketLink } from '@apollo/client/link/ws';
 
-const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:4000/subscriptions',
-  options: {
-    reconnect: true,
+// const wsLink = new WebSocketLink({
+//   uri: 'ws://localhost:4000/subscriptions',
+//   options: {
+//     reconnect: true,
 
-    // connectionParams: {
-    //   authToken: user.authToken,
-    // },
-  },
-});
+//     // connectionParams: {
+//     //   authToken: user.authToken,
+//     // },
+//   },
+// });
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
@@ -26,7 +26,7 @@ const splitLink = split(
       definition.operation === 'subscription'
     );
   },
-  wsLink,
+  httpLink,
   httpLink,
 );
 export default splitLink;

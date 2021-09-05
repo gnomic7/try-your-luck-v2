@@ -20,6 +20,16 @@ const TEAM_MEMBER_ADD = gql`
   }
 `;
 
+const TEAM_MEMBER_UPDATE = gql`
+  mutation UpdateTeamMember($fullName: String!, $score: Float!) {
+    updateTeamMember(fullName: $fullName, score: $score) {
+      id
+      fullName
+      score
+      status
+    }
+  }
+`;
 const MEMBER_ADDED_SUBSCRIPTION = gql`
   subscription OnMemberAdded($id: ID!) {
     memberAdded(id: $postID) {
@@ -30,4 +40,9 @@ const MEMBER_ADDED_SUBSCRIPTION = gql`
     }
   }
 `;
-export { TEAM_MEMBERS, TEAM_MEMBER_ADD, MEMBER_ADDED_SUBSCRIPTION };
+export {
+  TEAM_MEMBERS,
+  TEAM_MEMBER_ADD,
+  TEAM_MEMBER_UPDATE,
+  MEMBER_ADDED_SUBSCRIPTION,
+};

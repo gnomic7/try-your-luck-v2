@@ -18,8 +18,11 @@ export class TeamMember {
 @InputType()
 export class TeamMemberInput implements Partial<TeamMember> {
   @Field()
-  fullName: string = '';
+  fullName?: string = '';
 
   @Field()
   id: string = '';
+
+  @Field()
+  score?: number = 0;
 }

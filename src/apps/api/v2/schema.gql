@@ -4,8 +4,9 @@
 # -----------------------------------------------
 
 type Mutation {
-  addTeamMember(teamMemberInput: String!): TeamMember!
-  dropTeamMember(teamMemberInput: String!): TeamMember!
+  addTeamMember(fullName: String!): TeamMember!
+  dropTeamMember(id: String!): TeamMember!
+  updateTeamMember(fullName: String!, score: Float!): TeamMember!
 }
 
 type Query {

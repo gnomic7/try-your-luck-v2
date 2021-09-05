@@ -1,11 +1,6 @@
 import NavBar from './NavBar';
-// import { Registration } from '../Registration';
-// import { Login } from '../Login';
-
-const NavBarContainer = () => {
-  const userLoggedIn = false;
-
-  return <NavBar userLoggedIn={userLoggedIn} />;
-};
+const NavBarContainer = ({ userLoggedIn, setUserLoggedIn }) => (
+  <NavBar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
+);
 
 export default NavBarContainer;

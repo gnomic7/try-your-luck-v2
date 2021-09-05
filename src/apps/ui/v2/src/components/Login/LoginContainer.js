@@ -1,12 +1,15 @@
+// import { useState } from 'react';
 import Login from './Login';
 
-const LoginContainer = ({ handleModalClose, handleModalOpen, classes }) => {
+const LoginContainer = ({ setUserLoggedIn, open, handleClose }) => {
+  const handleLogin = (login) => () => {
+    // setUserLoggedIn(true);
+    console.log('Gonna handle login');
+    console.log(login);
+    handleClose();
+  };
   return (
-    <Login
-      handleClose={handleModalClose}
-      open={handleModalOpen}
-      classes={classes}
-    />
+    <Login open={open} handleLogin={handleLogin} handleClose={handleClose} />
   );
 };
 
