@@ -17,10 +17,9 @@ const MainBoardContainer = () => {
     if (counter === 10) {
       // eslint-disable-next-line no-restricted-globals
       if (confirm(`Your total score is: ${score}. Do you want to save this?`)) {
-        const fullName = prompt('What name would you like to use?');
-        console.log({ fullName, score });
+        const userName = prompt('What name would you like to use?');
         updateTeamMember({
-          variables: { fullName, score },
+          variables: { userName, score },
         });
       }
       setCounter(1);

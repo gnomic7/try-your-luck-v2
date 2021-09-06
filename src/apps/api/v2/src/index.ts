@@ -20,12 +20,12 @@ import { TeamMemberResolver } from './resolvers/teamMember';
     resolvers: [TeamMemberResolver],
     emitSchemaFile: true,
   });
-  const userId = '12345';
+  const accessToken = '12345';
   const server = new ApolloServer({
     schema,
     context() {
       // lookup userId by token, etc.
-      return { userId };
+      return { accessToken };
     },
     plugins: [
       {
@@ -47,7 +47,7 @@ import { TeamMemberResolver } from './resolvers/teamMember';
       subscribe,
       onConnect() {
         // lookup userId by token, etc.
-        return { userId };
+        return { accessToken };
       },
     },
     {

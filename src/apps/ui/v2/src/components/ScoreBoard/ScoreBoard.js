@@ -1,11 +1,15 @@
 import './ScoreBoard.css';
 const ScoreBoard = ({ member }) => {
-  const { fullName, score: apiScore } = member;
+  const { firstName, lastName, score: apiScore } = member;
   return (
-    <div key={fullName} className="memberItem">
-      <div>{fullName}:</div>
-      <div>{apiScore}</div>
-    </div>
+    member && (
+      <div key={`${firstName}-${lastName}`} className="memberItem">
+        <div>
+          {firstName} {lastName}:
+        </div>
+        <div>{apiScore}</div>
+      </div>
+    )
   );
 };
 

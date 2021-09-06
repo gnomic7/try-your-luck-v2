@@ -15,8 +15,14 @@ const ScoreBoardContainer = (props) => {
   return (
     <div className="scoreBoard">
       <div className="scoreBoardHeader">Current Score Board</div>
+      {!appData.scoreBoard.length && (
+        <div className="memberItem">No members yet</div>
+      )}
       {appData.scoreBoard.map((member) => (
-        <ScoreBoard member={member} key={member.fullName} />
+        <ScoreBoard
+          member={member}
+          key={`${member.firstName}-${member.lastName}`}
+        />
       ))}
     </div>
   );

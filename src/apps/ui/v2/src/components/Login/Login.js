@@ -12,10 +12,10 @@ const LoginBody = () => (
     <TextField
       autoFocus
       margin="dense"
-      id="username"
+      id="userName"
       label="Email Address"
       type="email"
-      onBlur={(e) => (login.username = e.target.value)}
+      onBlur={(e) => (login.userName = e.target.value)}
       fullWidth
     />
     <TextField
