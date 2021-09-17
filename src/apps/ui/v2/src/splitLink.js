@@ -17,6 +17,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
+  authorization: localStorage.getItem('token') || '',
 });
 const splitLink = split(
   ({ query }) => {

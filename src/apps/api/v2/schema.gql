@@ -3,23 +3,17 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Mutation {
-  addTeamMember(firstName: String!, lastName: String!, password: String!, userName: String!): TeamMember!
-  dropTeamMember(id: String!): TeamMember!
-  teamMemberLogin(password: String!, userName: String!): TeamMember!
-  updateTeamMember(memberObj: UpdatableMemberProps!): TeamMember!
-}
+type LoggedInMember {
+  accessToken: String!
 
-type Query {
-  getTeamMembers: [TeamMember!]
-}
+  """Display Name - first last name"""
+  displayName: String!
 
-type TeamMember {
   """First name of the member"""
   firstName: String!
   id: String!
 
-  """Last name of the member"""
+  """Last name"""
   lastName: String!
 
   """Password to access the try your luck game"""
@@ -37,21 +31,39 @@ type TeamMember {
   userName: String!
 }
 
-input UpdatableMemberProps {
-  """First name of the member"""
-  firstName: String = ""
+type Mutation {
+  addTeamMember(firstName: String!, lastName: String!, password: String!, userName: String!): TeamMember!
+  dropTeamMember(id: String!): TeamMember!
+  teamMemberLogin(password: String!, userName: String!): LoggedInMember
+  updateTeamMemberScore(id: String!, score: Float!): TeamMember!
+}
 
-  """Last name of the member"""
-  lastName: String = ""
+type Query {
+  getTeamMembers: [TeamMember!]
+}
+
+type TeamMember {
+  """Display Name - first last name"""
+  displayName: String!
+
+  """First name of the member"""
+  firstName: String!
+  id: String!
+
+  """Last name"""
+  lastName: String!
+
+  """Password to access the try your luck game"""
+  password: String!
 
   """Score of the game persisted for the member"""
-  score: Float = 0
+  score: Float!
 
   """
   When a member is out for a few weeks or intentionally set as inactive - the value is set to false.
   """
-  status: Boolean = false
+  status: Boolean!
 
-  """Username for the logged in member"""
-  userName: String = ""
+  """Username is usually created at the registration time."""
+  userName: String!
 }

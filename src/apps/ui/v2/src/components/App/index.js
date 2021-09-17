@@ -1,1 +1,1 @@
-export { default as App } from './AppContainer';
+export { default as App, ScoreBoardContext } from './AppContainer';

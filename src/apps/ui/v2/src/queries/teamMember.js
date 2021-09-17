@@ -5,6 +5,8 @@ const TEAM_MEMBERS = gql`
     getTeamMembers {
       firstName
       lastName
+      displayName
+      id
       status
       score
     }
@@ -14,10 +16,13 @@ const TEAM_MEMBERS = gql`
 const TEAM_MEMBERS_LOGIN = gql`
   mutation Login($userName: String!, $password: String!) {
     teamMemberLogin(userName: $userName, password: $password) {
+      id
+      userName
       firstName
       lastName
-      userName
+      displayName
       score
+      accessToken
     }
   }
 `;
@@ -37,6 +42,7 @@ const TEAM_MEMBER_ADD = gql`
       id
       firstName
       lastName
+      displayName
       score
       status
     }
@@ -44,11 +50,13 @@ const TEAM_MEMBER_ADD = gql`
 `;
 
 const TEAM_MEMBER_UPDATE = gql`
-  mutation UpdateTeamMember($userName: String!, $score: Float!) {
-    updateTeamMember(userName: $userName, score: $score) {
+  mutation updateTeamMemberScore($id: String!, $score: Float!) {
+    updateTeamMemberScore(id: $id, score: $score) {
       userName
+      id
       firstName
       lastName
+      displayName
       score
       status
     }

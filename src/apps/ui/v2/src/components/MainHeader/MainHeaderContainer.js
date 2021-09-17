@@ -1,5 +1,12 @@
-import MainHeader from './MainHeader';
+import { useContext } from 'react';
 
-const MainHeaderContainer = () => <MainHeader />;
+import MainHeader from './MainHeader';
+import { UserContext } from '../WithLayout';
+
+const MainHeaderContainer = () => {
+  const [user] = useContext(UserContext);
+
+  return <MainHeader user={user} />;
+};
 
 export default MainHeaderContainer;

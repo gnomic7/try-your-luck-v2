@@ -17,46 +17,76 @@ import {
   Context,
 } from '../schemas/TeamMember';
 import getCollection from '../utils/db';
-import { createPasswordHash } from '../utils/auth';
+import { createPasswordHash, generateAccessToken } from '../utils/auth';
 
 const TEAM_MEMBER_COLLECTION = 'teamMember';
 @Resolver((of) => TeamMember)
 export class TeamMemberResolver {
   private teamMembers: TeamMember[] = [];
   @Query((returns) => [TeamMember], { nullable: true })
-  async getTeamMembers(@Ctx() { accessToken }: Context): Promise<TeamMember[]> {
+  async getTeamMembers(@Ctx() user: Context): Promise<TeamMember[]> {
     const teamMemberCollection = await getCollection(TEAM_MEMBER_COLLECTION);
     return (await teamMemberCollection.find({}).toArray())
       .map((member) => ({
         id: member.id || uuidv4(),
         firstName: member.firstName || '',
         lastName: member.lastName || '',
+        displayName: `${member.firstName} ${member.lastName}`,
         score: member.score || 0,
         status: member.status || false,
       }))
       .sort((a, b) => b.score - a.score);
   }
 
-  @Mutation((returns) => TeamMember)
+  @Mutation((returns) => LoggedInMember, { nullable: true })
   async teamMemberLogin(
     @Arg('userName') userName: string,
     @Arg('password') password: string,
-  ): Promise<LoggedInMember | void> {
+  ): Promise<{
+    id: string;
+    accessToken: string;
+    score: number;
+    userName: string;
+    firstName: string;
+    lastName: string;
+    displayName: string;
+  }> {
     try {
+      console.log('What is here...');
       const teamMemberCollection = await getCollection(TEAM_MEMBER_COLLECTION);
       const response = await teamMemberCollection.findOne<TeamMember>({
         userName,
       });
       if (response && response.password) {
         if (createPasswordHash(password) === response.password) {
-          return response;
+          const {
+            id = '',
+            userName = '',
+            firstName = '',
+            lastName = '',
+            displayName = '',
+            score = 0,
+          } = response;
+          // Sign an jwt token and return
+          return {
+            id,
+            userName,
+            firstName,
+            lastName,
+            displayName: `${firstName} ${lastName}`,
+            score,
+            accessToken: generateAccessToken({
+              id,
+              userName,
+            }),
+          };
         }
         throw new Error('Wrong password');
       }
-      console.log(response);
       throw new Error('Invalid login');
     } catch (err) {
       console.log(err);
+      throw err;
     }
   }
 
@@ -72,6 +102,7 @@ export class TeamMemberResolver {
       id: uuidv4(),
       firstName,
       lastName,
+      displayName: `${firstName} ${lastName}`,
       score: 0,
       userName,
       password: createPasswordHash(password),
@@ -102,19 +133,22 @@ export class TeamMemberResolver {
   }
 
   @Mutation((returns) => TeamMember)
-  async updateTeamMember(
-    @Arg('memberObj') memberObj: UpdatableMemberProps,
+  async updateTeamMemberScore(
+    @Arg('id') id: string,
+    @Arg('score') score: number,
     @Ctx() { accessToken }: Context,
   ): Promise<TeamMember | {}> {
-    const { userName, ...otherProps } = memberObj;
     const teamMemberCollection = await getCollection(TEAM_MEMBER_COLLECTION);
-    await teamMemberCollection.updateOne({ userName }, { $set: otherProps });
+    await teamMemberCollection.updateOne({ id }, { $set: { score } });
 
-    return (
-      (await teamMemberCollection.findOne<TeamMember>({
-        userName,
-      })) || {}
-    );
+    const member = await teamMemberCollection.findOne<TeamMember>({
+      id,
+    });
+    return {
+      ...member,
+      displayName:
+        member?.displayName || `${member?.firstName} ${member?.lastName}`,
+    };
   }
 
   // @Subscription({ topics: 'memberAdded' })

@@ -1,12 +1,10 @@
 import './ScoreBoard.css';
 const ScoreBoard = ({ member }) => {
-  const { firstName, lastName, score: apiScore } = member;
+  const { displayName, score: apiScore } = member;
   return (
     member && (
-      <div key={`${firstName}-${lastName}`} className="memberItem">
-        <div>
-          {firstName} {lastName}:
-        </div>
+      <div key={displayName} className="memberItem">
+        <div>{displayName}:</div>
         <div>{apiScore}</div>
       </div>
     )

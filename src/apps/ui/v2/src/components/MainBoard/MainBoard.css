@@ -6,7 +6,7 @@
 }
 
 .btn-group button {
-  margin: 2px;
+  width: 100%;
   font-weight: 900;
   box-shadow: inset 1px 1px 10px #333;
   background-color: #04aa6d; /* Green background */

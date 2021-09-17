@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { MainHeader } from '../MainHeader';
 import { MainBoard } from '../MainBoard';
 import { ScoreBoard } from '../ScoreBoard';
@@ -8,11 +8,15 @@ const AppComponent = () => (
   <>
     <section className="mainContent">
       <MainHeader />
-      <MainBoard />
+      <Suspense fallback={<h2>Warming up!</h2>}>
+        <MainBoard />
+      </Suspense>
     </section>
-    <aside>
-      <ScoreBoard />
-    </aside>
+    <Suspense fallback={<div className="memberItem">No members yet</div>}>
+      <aside>
+        <ScoreBoard />
+      </aside>
+    </Suspense>
   </>
 );
 

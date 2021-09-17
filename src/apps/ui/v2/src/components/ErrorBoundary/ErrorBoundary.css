@@ -1,0 +1,12 @@
+.errorContent {
+  min-width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.errorContent div {
+  color: azure;
+  font-variant: small-caps;
+  font-weight: bolder;
+  font-style: oblique;
+}

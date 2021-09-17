@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, TextField, DialogContentText } from '@material-ui/core';
 
 import { TryModal } from '../TryModal';
-const login = { username: '', password: '' };
+const login = { username: '', password: '', error: { text: '' } };
 const LoginBody = () => (
   <>
     <DialogContentText>
@@ -19,11 +19,12 @@ const LoginBody = () => (
       fullWidth
     />
     <TextField
-      autoFocus
+      error={login.error.text.length > 0}
       margin="dense"
       id="password"
       label="Password"
       type="password"
+      helperText={login.error.text}
       onBlur={(e) => (login.password = e.target.value)}
       fullWidth
     />

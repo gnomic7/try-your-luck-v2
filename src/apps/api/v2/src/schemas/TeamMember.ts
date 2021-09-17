@@ -8,8 +8,11 @@ export class TeamMember {
   @Field({ description: 'First name of the member' })
   firstName: string = '';
 
-  @Field({ description: 'Last name of the member' })
+  @Field({ description: 'Last name' })
   lastName: string = '';
+
+  @Field({ description: 'Display Name - first last name' })
+  displayName: string = '';
 
   @Field({ description: 'Score of the game persisted for the member' })
   score: number = 0;
@@ -45,10 +48,7 @@ export class TeamMemberInput implements Partial<TeamMember> {
 }
 
 @ObjectType()
-export class LoggedInMember implements Partial<TeamMember> {
-  @Field()
-  id: string = '';
-
+export class LoggedInMember extends TeamMember {
   @Field()
   accessToken?: string = '';
 }

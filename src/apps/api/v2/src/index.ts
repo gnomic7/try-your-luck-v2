@@ -8,6 +8,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 
 import { buildSchema } from 'type-graphql';
 import { TeamMemberResolver } from './resolvers/teamMember';
+import { decodeToken } from './utils/auth';
 
 // import { makeExecutableSchema } from '@graphql-tools/schema';
 
@@ -20,12 +21,14 @@ import { TeamMemberResolver } from './resolvers/teamMember';
     resolvers: [TeamMemberResolver],
     emitSchemaFile: true,
   });
-  const accessToken = '12345';
   const server = new ApolloServer({
     schema,
-    context() {
-      // lookup userId by token, etc.
-      return { accessToken };
+    context({ req }) {
+      const token = req?.headers?.authorization;
+      if (token) {
+        return { user: decodeToken(token) };
+      } else {
+      }
     },
     plugins: [
       {
@@ -47,7 +50,7 @@ import { TeamMemberResolver } from './resolvers/teamMember';
       subscribe,
       onConnect() {
         // lookup userId by token, etc.
-        return { accessToken };
+        return { user: decodeToken('') };
       },
     },
     {

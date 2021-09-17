@@ -13,7 +13,7 @@ const RegistrationBody = () => (
   <>
     <DialogContentText>
       In order to persist your score and display at the top of your friend's
-      score board - please login and save the data
+      score board - please register and save the data
     </DialogContentText>
     <TextField
       autoFocus

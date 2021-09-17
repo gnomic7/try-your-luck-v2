@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Login } from '../Login';
+import { Logout } from '../Logout';
 import { Registration } from '../Registration';
+
 import './NavBar.css';
-const NavBar = ({ userLoggedIn, setUserLoggedIn }) => {
+const NavBar = ({ userLoggedIn }) => {
   const [open, setOpen] = useState(false);
   const [clickedItem, setClickedItem] = useState('');
   const handleLoginClick = (e) => {
@@ -34,7 +36,6 @@ const NavBar = ({ userLoggedIn, setUserLoggedIn }) => {
             open={open}
             userLoggedIn={userLoggedIn}
             handleClose={handleClose}
-            setUserLoggedIn={setUserLoggedIn}
           />
         )}
         {!userLoggedIn && (
@@ -51,7 +52,7 @@ const NavBar = ({ userLoggedIn, setUserLoggedIn }) => {
           </a>
         )}
         {clickedItem === 'logout' && (
-          <Registration open={open} handleClose={handleClose} />
+          <Logout open={open} handleClose={handleClose} />
         )}
       </nav>
     </header>
