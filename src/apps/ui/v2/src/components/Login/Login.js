@@ -35,7 +35,7 @@ const LoginFooter = ({ handleLogin, handleClose }) => (
     <Button onClick={handleClose} color="primary">
       Cancel
     </Button>
-    <Button onClick={handleLogin(login)} color="primary">
+    <Button type="submit" onClick={handleLogin(login)} color="primary">
       Login
     </Button>
   </>

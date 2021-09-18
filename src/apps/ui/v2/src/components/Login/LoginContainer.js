@@ -5,14 +5,19 @@ import Login from './Login';
 import { TEAM_MEMBERS_LOGIN } from '../../queries';
 
 const LoginContainer = ({ open, handleClose }) => {
-  const [teamMemberLogin, { error: apiError }] =
-    useMutation(TEAM_MEMBERS_LOGIN);
-
   const [user, setUser] = useContext(UserContext);
   const [, setError] = useContext(ErrorContext);
-  // if (loading) return
-  if (apiError) return setError('Login not found! Please try again.');
 
+  const [teamMemberLogin, { loading, error: apiError }] =
+    useMutation(TEAM_MEMBERS_LOGIN);
+
+  if (loading) return '';
+  if (apiError) {
+    setError(
+      `${apiError.message} - Authentication failed! Please check the email/password and retry again.`,
+    );
+    return '';
+  }
   const handleLogin = (login) => async () => {
     const { userName, password } = login;
     try {
@@ -33,13 +38,8 @@ const LoginContainer = ({ open, handleClose }) => {
         },
       });
       setError('');
-    } catch (err) {
-      setError(
-        'Authentication failed! Please check the email/password and retry again.',
-      );
-    }
+    } catch (err) {}
     handleClose();
-    return null;
   };
   return (
     <Login open={open} handleLogin={handleLogin} handleClose={handleClose} />

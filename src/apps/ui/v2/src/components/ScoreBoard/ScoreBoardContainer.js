@@ -24,7 +24,11 @@ const useStyles = makeStyles((theme) => ({
 const ScoreBoardContainer = () => {
   const [scoreBoard, setScoreBoard] = useContext(ScoreBoardContext);
   const classes = useStyles();
-  const { loading, error, data } = useQuery(TEAM_MEMBERS);
+  const { loading, error, data } = useQuery(TEAM_MEMBERS, {
+    onError(err) {
+      return <div>err.message;</div>;
+    },
+  });
   useEffect(() => {
     if (!loading || (!error && data?.getTeamMembers)) {
       setScoreBoard(data.getTeamMembers);

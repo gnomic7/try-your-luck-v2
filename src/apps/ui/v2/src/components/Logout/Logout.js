@@ -12,7 +12,7 @@ const LogoutBody = () => (
 );
 const LogoutFooter = ({ handleClose, handleLogout }) => (
   <>
-    <Button onClick={handleClose} color="primary">
+    <Button onClick={handleClose} color="primary" autoFocus>
       Cancel
     </Button>
     <Button onClick={handleLogout} color="primary">

@@ -1,6 +1,4 @@
 import NavBar from './NavBar';
-const NavBarContainer = ({ userLoggedIn }) => (
-  <NavBar userLoggedIn={userLoggedIn} />
-);
+const NavBarContainer = (props) => <NavBar {...props} />;
 
 export default NavBarContainer;

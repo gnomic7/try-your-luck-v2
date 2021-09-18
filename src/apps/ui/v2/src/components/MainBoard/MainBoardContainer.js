@@ -4,10 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ScoreBoardContext } from '../App';
 import { UserContext } from '../WithLayout';
+import { ErrorBoundary } from '../ErrorBoundary';
 
 import { TEAM_MEMBER_UPDATE } from '../../queries';
 import MainBoard from './MainBoard';
-import { ErrorContext } from '../WithLayout/WithLayout';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const MainBoardContainer = () => {
   const [scoreBoard, setScoreBoard] = useContext(ScoreBoardContext);
-  const [error, setError] = useContext(ErrorContext);
+  // const [error, setError] = useContext(ErrorContext);
   const classes = useStyles();
   const [user] = useContext(UserContext);
   const [score, setScore] = useState(0);
@@ -30,11 +30,14 @@ const MainBoardContainer = () => {
     userLoggedIn,
     props: { id },
   } = user;
-  const [updateTeamMemberScore, { loading, error: apiError }] =
-    useMutation(TEAM_MEMBER_UPDATE);
+  const [updateTeamMemberScore, { loading, error }] = useMutation(
+    TEAM_MEMBER_UPDATE,
+    { errorPolicy: 'ignore' },
+  );
   if (!userLoggedIn) {
-    setError('Please login or register to play this game. ');
-    return <div></div>;
+    return (
+      <ErrorBoundary error="Please login or register to play this game." />
+    );
   }
 
   if (loading)
@@ -45,6 +48,7 @@ const MainBoardContainer = () => {
     );
   if (error) return `Submission error! ${error.message}`;
   const computeTotal = (val) => {
+    console.log(score, counter);
     if (counter === 10) {
       // eslint-disable-next-line no-restricted-globals
       if (confirm(`Your total score is: ${score}. Do you want to save this?`)) {
@@ -52,7 +56,7 @@ const MainBoardContainer = () => {
           updateTeamMemberScore({
             variables: { id, score },
           });
-          if (!loading && !apiError) {
+          if (!loading && !error) {
             setScoreBoard(
               scoreBoard.map((member) =>
                 member.id === id ? { ...member, score } : member,
@@ -61,15 +65,11 @@ const MainBoardContainer = () => {
           }
         } catch (err) {
           console.log(err);
-          setError(
-            'Login failed! Please check your email/password and try again.',
-          );
         }
-      } else {
-        setCounter(1);
-        setScore(0);
-        return;
       }
+      setCounter(1);
+      setScore(0);
+      return;
     }
     setCounter(counter + 1);
     setScore(score + val);

@@ -4,8 +4,7 @@ import { Logout } from '../Logout';
 import { Registration } from '../Registration';
 
 import './NavBar.css';
-const NavBar = ({ userLoggedIn }) => {
-  const [open, setOpen] = useState(false);
+const NavBar = ({ userLoggedIn, open, setOpen }) => {
   const [clickedItem, setClickedItem] = useState('');
   const handleLoginClick = (e) => {
     e.preventDefault();

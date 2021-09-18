@@ -27,12 +27,17 @@ const Layout = ({ children }) => {
   const [appState, setAppState] = useState(TryYourLuckContent);
   const [user, setUser] = useState(initUser);
   const [error, setError] = useState('');
+  const [open, setOpen] = useState(false);
   return (
     <ApplicationContext.Provider value={[appState, setAppState]}>
       <ErrorContext.Provider value={[error, setError]}>
         <UserContext.Provider value={[user, setUser]}>
           <main className="main">
-            <NavBar userLoggedIn={user.userLoggedIn} />
+            <NavBar
+              userLoggedIn={user.userLoggedIn}
+              open={open}
+              setOpen={setOpen}
+            />
             <ErrorBoundary error={error}>
               <section className="container">{children}</section>
             </ErrorBoundary>
