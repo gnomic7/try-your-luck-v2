@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 const baseSalt = 'try-your-luck-is-cool';
-const secret = 'I am very secret and going to be even more secret soon';
+const secret =
+  process.env.SECRET ||
+  'I am very secret and going to be even more secret soon';
 const generateAccessToken = (user: { userName?: string; id: string }) =>
   jwt.sign(user, secret, { expiresIn: '1h' });
 

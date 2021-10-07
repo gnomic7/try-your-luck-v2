@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import express from 'express';
@@ -8,7 +9,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 
 import { buildSchema } from 'type-graphql';
 import { TeamMemberResolver } from './resolvers/teamMember';
-import { decodeToken } from './utils/auth';
+import { decodeToken, verifyToken } from './utils/auth';
 
 // import { makeExecutableSchema } from '@graphql-tools/schema';
 
@@ -25,9 +26,10 @@ import { decodeToken } from './utils/auth';
     schema,
     context({ req }) {
       const token = req?.headers?.authorization;
-      if (token) {
+      if (token && verifyToken(token)) {
         return { user: decodeToken(token) };
       } else {
+        throw new Error('Login required!');
       }
     },
     plugins: [

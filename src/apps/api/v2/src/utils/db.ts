@@ -1,6 +1,10 @@
 import { MongoClient } from 'mongodb';
-
-const mongoURI = process.env.MONGO_URL || 'mongodb://localhost:27017';
+const dbPass = process.env.MONGO_DB_PASS || '';
+const dbName = process.env.MONGO_DB_NAME || '';
+const dbHost = process.env.MONGO_DB_HOST || 'mongodb://localhost:27017';
+const mongoURI =
+  process.env.MONGO_URL || `mongodb+srv://${dbName}:${dbPass}@${dbHost}`;
+console.log(mongoURI);
 const mongoDB = process.env.MONGO_DB || 'try-your-luck';
 const mongoClient = new MongoClient(mongoURI);
 const getCollection = async (name: string) => {
